@@ -10,7 +10,9 @@ mongoose.Promise = global.Promise;
 mongoose.connect("mongodb://localhost:27017/data");
 var nameSchema = new mongoose.Schema({
   name: String,
-  id: String
+  sno: String,
+  mdcf: String,
+  description: String
 });
 
 var Microservice = mongoose.model("Microservice", nameSchema);
@@ -34,7 +36,8 @@ var router = express.Router(); // get an instance of the express Router
 
 // test route to make sure everything is working (accessed at GET http://localhost:8080/api)
 router.post("/saveData", function (req, res) {
-  var saveData = new Microservice(req.body.input.resultAsString);
+
+  var saveData = new Microservice(req.body.input);
   if (saveData !== null) {
       try {
         console.log("saving data to mongodb");
